@@ -212,16 +212,17 @@ Key environment variables (see `.env.example` for full configuration):
 ### API Configuration
 ```env
 NODE_ENV=development
-API_PORT=3000
+PORT_API=3000
 ```
 
 ### Database (PostgreSQL)
 ```env
+DB_TYPE=postgres
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=postgres
 DB_PASSWORD=postgres
-DB_DATABASE=nestjs_db
+DB_NAME=nestjs_db
 ```
 
 ### Cache (Redis)
