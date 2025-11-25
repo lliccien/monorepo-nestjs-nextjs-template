@@ -2,48 +2,56 @@
 
 Full-stack monorepo template with NestJS backend and Next.js frontend, managed with Turborepo and pnpm.
 
-## Tech Stack
+## 🚀 Tech Stack
 
 ### Backend (API)
-- **NestJS** - Progressive Node.js framework
+- **NestJS 11** - Progressive Node.js framework
 - **TypeORM** - ORM for database management
-- **PostgreSQL** - Primary database
-- **Redis** - Caching layer
+- **PostgreSQL 17** - Primary database
+- **Redis 7** - Caching layer
 - **Swagger** - API documentation
 
 ### Frontend (Web)
 - **Next.js 16** - React framework with App Router
 - **React 19** - UI library
 - **Tailwind CSS 4** - Utility-first CSS
-- **TypeScript** - Type safety
+- **TypeScript 5** - Type safety
 
-### Tools
+### Development Tools
 - **Turborepo** - High-performance build system
-- **pnpm** - Fast, disk space efficient package manager
+- **pnpm 9** - Fast, disk space efficient package manager
 - **Docker** - Containerization for development and production
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
+- **ESLint 9** - Code linting
+- **Prettier 3** - Code formatting
 
-## Prerequisites
+## 📋 Prerequisites
 
 - Node.js 18+
 - pnpm 9+
 - Docker & Docker Compose
 - Make (optional, for shortcuts)
 
-## Getting Started
+## 🏁 Quick Start
 
-### 1. Install Dependencies
+### 1. Clone and Install
 
 ```bash
+# Clone repository
+git clone <repository-url>
+cd monorepo-nestjs-nextjs-template
+
+# Install dependencies
 pnpm install
 ```
 
 ### 2. Setup Environment
 
 ```bash
+# Copy environment file
 cp .env.example .env
+
 # Edit .env with your configuration
+# Default values work for local development
 ```
 
 ### 3. Start Development Services
@@ -52,49 +60,65 @@ cp .env.example .env
 # Using Makefile (recommended)
 make dev-up
 
-# Or directly with docker-compose
+# Or using docker-compose directly
 docker compose --env-file .env -f docker/docker-compose.dev.yml up -d
 ```
 
-This starts PostgreSQL and Redis containers. Services:
-- PostgreSQL: `localhost:5432`
-- Redis: `localhost:6379`
+This starts PostgreSQL and Redis containers:
+- **PostgreSQL**: `localhost:5432`
+- **Redis**: `localhost:6379`
 
 ### 4. Run Applications
 
 ```bash
-# Run all apps
+# Run all applications
 pnpm dev
 
-# Run specific app
-pnpm dev:api    # API on http://localhost:4000
-pnpm dev:web    # Web on http://localhost:3000
+# Or run specific application
+pnpm dev:api    # API on http://localhost:3000
+pnpm dev:web    # Web on http://localhost:3001
 ```
 
-## Project Structure
+### 5. Access Applications
+
+- **Web App**: http://localhost:3001
+- **API**: http://localhost:3000
+- **API Documentation (Swagger)**: http://localhost:3000/api/docs
+
+## 📁 Project Structure
 
 ```
-.
+monorepo-nestjs-nextjs-template/
 ├── apps/
-│   ├── api/          # NestJS backend
-│   └── web/          # Next.js frontend
-├── docker/           # Docker configuration
-│   ├── docker-compose.dev.yml
-│   ├── docker-compose.prod.yml
-│   ├── Dockerfile.api
-│   └── Dockerfile.web
-├── packages/         # Shared packages (empty, ready for libraries)
-└── Makefile          # Development commands
+│   ├── api/                    # NestJS Backend API
+│   │   ├── src/
+│   │   ├── test/
+│   │   └── package.json
+│   └── web/                    # Next.js Frontend
+│       ├── src/
+│       ├── public/
+│       └── package.json
+├── docker/                     # Docker Configuration
+│   ├── docker-compose.dev.yml  # Development services (PostgreSQL, Redis)
+│   ├── docker-compose.prod.yml # Production services (API, Web)
+│   ├── Dockerfile.api          # API production image
+│   └── Dockerfile.web          # Web production image
+├── packages/                   # Shared packages (ready for libraries)
+├── .env.example                # Environment variables template
+├── Makefile                    # Development shortcuts
+├── package.json                # Root package configuration
+├── pnpm-workspace.yaml         # pnpm workspace configuration
+└── turbo.json                  # Turborepo configuration
 ```
 
-## Available Commands
+## 📦 Available Commands
 
 ### Development
 
 ```bash
 pnpm dev           # Start all apps in development mode
-pnpm dev:api       # Start API only
-pnpm dev:web       # Start Web only
+pnpm dev:api       # Start API only (port 3000)
+pnpm dev:web       # Start Web only (port 3001)
 ```
 
 ### Build
@@ -113,33 +137,51 @@ pnpm start:api     # Start API only
 pnpm start:web     # Start Web only
 ```
 
+### Testing
+
+```bash
+pnpm test          # Run all tests
+pnpm test:api      # Run API tests
+pnpm test:web      # Run Web tests
+```
+
 ### Code Quality
 
 ```bash
 pnpm lint          # Lint all apps
 pnpm format        # Format code with Prettier
-pnpm test          # Run all tests
+pnpm format:check  # Check code formatting
+pnpm type-check    # Check TypeScript types
 ```
 
-## Docker Commands (Makefile)
+### Cleanup
 
-### Development
+```bash
+pnpm clean         # Clean all build artifacts and node_modules
+```
+
+## 🐳 Docker Commands (Makefile)
+
+### Development Services
 
 ```bash
 make dev-up        # Start PostgreSQL + Redis
 make dev-down      # Stop services
 make dev-logs      # View logs
+make dev-restart   # Restart services
 make dev-clean     # Clean containers and volumes
 ```
 
-### Production
+### Production Deployment
 
 ```bash
-make prod-build    # Build production images
-make prod-up       # Start API + Web containers
+make prod-build    # Build production images (API + Web)
+make prod-up       # Start production containers
 make prod-down     # Stop production services
 make prod-logs     # View production logs
-make prod-clean    # Clean production containers
+make prod-restart  # Restart production services
+make prod-rebuild  # Rebuild and restart production
+make prod-clean    # Clean production containers and images
 ```
 
 ### Utilities
@@ -147,57 +189,115 @@ make prod-clean    # Clean production containers
 ```bash
 make help          # Show all available commands
 make status        # Show container status
+make clean         # Clean all (dev + prod)
 ```
 
-## API Documentation
+## 📖 API Documentation
 
-When running in development, Swagger documentation is available at:
-- API Docs: `http://localhost:4000/api`
+Swagger documentation is available when running the API:
 
-## Environment Variables
+- **Development**: http://localhost:3000/api/docs
+- **Production**: http://localhost:3000/api/docs
 
-Key environment variables in `.env`:
+Features:
+- Interactive API testing
+- Request/response schemas
+- Authentication endpoints
+- Bearer token support
 
+## ⚙️ Environment Variables
+
+Key environment variables (see `.env.example` for full configuration):
+
+### API Configuration
 ```env
-# Database
+NODE_ENV=development
+API_PORT=3000
+```
+
+### Database (PostgreSQL)
+```env
 DB_HOST=localhost
 DB_PORT=5432
-DB_USERNAME=myuser
-DB_PASSWORD=mypassword
-DB_NAME=mydb
-
-# Redis
-REDIS_HOST=localhost
-REDIS_PORT=6379
-
-# API
-PORT_API=4000
-
-# Web
-NEXT_PUBLIC_API_URL=http://localhost:4000
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=nestjs_db
 ```
 
-## Production Deployment
+### Cache (Redis)
+```env
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
 
-For production, configure external PostgreSQL and Redis services, then:
+### Web (Next.js)
+```env
+WEB_PORT=3001
+NEXT_PUBLIC_API_URL=http://localhost:3000
+```
 
+### Optional Configurations
+- JWT authentication (commented in `.env.example`)
+- CORS settings
+- Logging levels
+- Analytics integration
+
+## 🚢 Production Deployment
+
+### Prerequisites
+- External PostgreSQL database
+- External Redis instance (optional but recommended)
+- Docker and Docker Compose
+
+### Steps
+
+1. **Configure environment variables**
 ```bash
-# Build images
-make prod-build
+# Update .env with production values
+DB_HOST=your-production-db-host
+REDIS_HOST=your-production-redis-host
+```
 
-# Start containers
+2. **Build production images**
+```bash
+make prod-build
+```
+
+3. **Start production containers**
+```bash
 make prod-up
 ```
 
-The production setup uses optimized multi-stage Docker builds with minimal image sizes.
+4. **Verify deployment**
+```bash
+make status
+make prod-logs
+```
 
-## Contributing
+The production setup includes:
+- Multi-stage Docker builds for minimal image sizes
+- Health checks for API and Web services
+- Automatic restart policies
+- Optimized Node.js production builds
 
-1. Create a feature branch
-2. Make your changes
-3. Run `pnpm lint` and `pnpm test`
-4. Submit a pull request
+## 🤝 Contributing
 
-## License
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run tests and linting (`pnpm lint && pnpm test`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
-UNLICENSED
+## 📝 License
+
+UNLICENSED - This is a template project
+
+## 🔗 Resources
+
+- [NestJS Documentation](https://docs.nestjs.com/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Turborepo Documentation](https://turbo.build/repo/docs)
+- [pnpm Documentation](https://pnpm.io/)
+- [TypeORM Documentation](https://typeorm.io/)
